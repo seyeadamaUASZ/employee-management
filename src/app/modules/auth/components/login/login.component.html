@@ -1,54 +1,71 @@
-<!-- <div style="margin-top: 90px;">
-    <mat-card>
-        <mat-card-content>
-          <form [formGroup]="ngForm" (ngSubmit)="submit()">
-            <h2>Connexion</h2>
-            <mat-error *ngIf="!loginValid">
-              The username and password were not recognized
-            </mat-error>
-            <mat-form-field>
-              <input matInput placeholder="Email" formControlName="username" name="username">
-              <mat-error>
-                Please provide a valid email address
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput type="password" formControlName="password" placeholder="Password"  name="password">
-              <mat-error>
-                Please provide a valid password
-              </mat-error>
-            </mat-form-field>
-            <button type="submit" mat-raised-button color="primary" [disabled]="ngForm.invalid">Login</button>
-          </form>
-        </mat-card-content>
-      </mat-card>
-</div> -->
+<div class="container">
+  <div class="col-lg-10 mx-auto">
+      <div class="container-form container-form-guest-large">
+          <div class="row">
+              <div class="col-md-6" id="bg-img"></div>
+              <div class="col-md-6 p-4">
+                  <h4>Formulaire de connexion</h4>
+                  <form [formGroup]="ngForm" (ngSubmit)="submit()" >
+                      <div class="col-sm-12">
+                          <mat-form-field appearance="outline" class="w-100">
+                              <mat-label>Email</mat-label>
+                              <input formControlName="username" matInput type="email" />
+                              <button mat-icon-button matSuffix>
+                                  <mat-icon matSuffix>perm_identity</mat-icon>
+                              </button>
 
+                              <!-- <mat-error *ngIf="f['username'].touched && f['username']?.errors">
+                                  <small *ngIf="f['username'].hasError('required')">Login obligatoire</small>
+                                  <small *ngIf="!f['username'].hasError('required')">Login non conforme</small>
+                              </mat-error> -->
 
-<mat-card>
-    <mat-card-title>Connexion</mat-card-title>
-<mat-card-content>
-<form [formGroup]="ngForm" (ngSubmit)="submit()">
-  <p>
-    <mat-form-field>
-      <input type="text" matInput placeholder="Username" formControlName="username">
-    </mat-form-field>
-  </p>
+                              <mat-error>{{getFormControlErrorText(emailCtrl)}}</mat-error>
+                          </mat-form-field>
+                      </div>
 
-  <p>
-    <mat-form-field>
-      <input type="password" matInput placeholder="Password" formControlName="password">
-    </mat-form-field>
-  </p>
+                      <div class="col-sm-12">
+                          <mat-form-field appearance="outline" class="w-100">
+                              <mat-label>Mot de passe</mat-label>
+                              <input [type]="hide ? 'password' : 'text'" formControlName="password" matInput />
+                              <button
+                                  (click)="hide = !hide"
+                                  [attr.aria-label]="'Hide password'"
+                                  [attr.aria-pressed]="hide"
+                                  mat-icon-button
+                                  matSuffix
+                              >
+                                  <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                              </button>
 
-  <p *ngIf="error" class="error">
-    {{ error }}
-  </p>
+                               <!-- <mat-error *ngIf="f['password'].touched && f['password']?.errors">
+                                  <small *ngIf="f['password'].hasError('required')">Mot de passe obligatoire</small>
+                                  <small *ngIf="!f['password'].hasError('required')">Mot de passe non conforme</small>
+                              </mat-error>  -->
 
-  <div class="button">
-    <button type="submit" mat-raised-button color="primary">Login</button>
+                              <mat-error>{{getFormControlErrorText(passwordCtrl)}}</mat-error>
+                          </mat-form-field>
+                      </div>
+
+                      <!-- <div class="col-md-6">
+                          <div class="form-check form-switch">
+                              <input class="form-check-input" formControlName="remember" id="flexSwitchCheckChecked" type="checkbox" />
+                              <label class="form-check-label" for="flexSwitchCheckChecked">Se souvenir de moi</label>
+                          </div>
+                      </div> -->
+
+                      <div class="col-md-12">
+                          <button class="button-blue w-100" type="submit">Se connecter</button>
+                      </div>
+
+                      <hr />
+                      <!-- <div class="col-md-12">
+                          <a class="button-green w-100" routerLink="/kyc/search-request-form" type="button" type="button"
+                              >J'ai déjà une demande KYC en cours</a
+                          >
+                      </div> -->
+                  </form>
+              </div>
+          </div>
+      </div>
   </div>
-
-</form>
-</mat-card-content>
-</mat-card>
+</div>
