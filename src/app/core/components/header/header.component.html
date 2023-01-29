@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light back">
+<!-- <nav class="navbar navbar-expand-lg navbar-light back">
     <div class="container-fluid">
       <a class="navbar-brand colour" href="#">Gestion personnelle</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,23 +12,9 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/layout/employee"> <span class="colour"><span class="colour">Gestion des employés</span></span></a>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li> -->
 
           <li class="nav-item">
-            <!--[routerLink=""] using dynamic value-->
+        
             <a class="nav-link" routerLink='' tabindex="-1" aria-disabled="true">
               <span class="colour">Déconnecter</span> 
             </a>
@@ -40,4 +26,45 @@
         </form>
       </div>
     </div>
-  </nav>
+  </nav> -->
+
+
+  <div class="topbar">
+    <div class="toggle-sidebar">
+        <a href="javaScript:(0);"><i class="bx bx-menu"></i></a>
+    </div>
+    <div>
+        <div class="user-wrapper dropdown">
+            <div class="user-avatar">
+                <img width="60" height="60" src="{{ 'assets/images/user.png' }}" alt="user-image" class="rounded-circle" />
+            </div>
+            <span class="user-content">
+                <span>Adama</span>
+                <span>Admin</span>
+            </span>
+
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+                <li>
+                    <a href="javaScript:(0);" class="dropdown-item">
+                        <i class="fa fa-user-circle"></i>
+                        <span> Mon compte</span>
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="javaScript:(0);"
+                        (click)="onLogout()"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#logoutConfirm"
+                    >
+                        <i class="fa fa-sign-out-alt"></i>
+                        <span> Déconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

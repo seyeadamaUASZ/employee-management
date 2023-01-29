@@ -1,0 +1,186 @@
+<div class="sidebar">
+    <!-- ========== Logo ============  -->
+    <a href="javaScript:(0);" class="logo-box">
+        <i class="bx bxl-xing"></i>
+        <div class="logo-name">
+            <br />
+            <img class="logo-pts" src="{{ 'assets/images/logo.jpg' }}" alt="Management" />
+        </div>
+    </a>
+
+    <ul class="sidebar-list">
+        <li routerLinkActive="active-link">
+            <div class="title">
+                <a routerLink="/layout" class="link">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="name">Tableau de bord</span>
+                </a>
+            </div>
+            <div class="submenu">
+                <a routerLink="/layout" class="link submenu-title">Tableau de bord</a>
+            </div>
+        </li>
+
+        <li routerLinkActive="active-link">
+            <div class="title">
+                <a href="javaScript:(0);" routerLink="/layout/employee" class="link">
+                    <i class="bx bx-book-alt"></i>
+                    <span class="name">Gestion des employés</span>
+                </a>
+            </div>
+            <div class="submenu">
+                <a href="javaScript:(0);" class="link submenu-title">Gestion des employés</a>
+            </div>
+        </li>
+
+        <li class="dropdown" routerLinkActive="active-link">
+            <div class="title">
+                <a href="javaScript:(0);" class="link">
+                    <i class="bx bx-collection"></i>
+                    <span class="name">Liens</span>
+                </a>
+                <i class="bx bxs-chevron-down"></i>
+            </div>
+            <div class="submenu">
+                <a href="javaScript:(0);" class="link submenu-title">Liens</a>
+                <a href="javaScript:(0);" routerLink="/kyc-requests/to-be-processed" class="link">Lien 1</a>
+                <a href="javaScript:(0);" routerLink="/kyc-requests/processed" class="link">Lien 2</a>
+                <a href="javaScript:(0);" routerLink="/kyc-requests/cancelled" class="link">Lien 3</a>
+            </div>
+        </li>
+
+        <li routerLinkActive="active-link">
+            <div class="title">
+                <a href="javaScript:(0);" (click)="onLogout()" class="link">
+                    <i class="bx bx-log-out-circle"></i>
+                    <span class="name">Déconnexion</span>
+                </a>
+            </div>
+            <div class="submenu">
+                <a href="javaScript:(0);" (click)="onLogout()" class="link submenu-title">Déconnexion</a>
+            </div>
+        </li>
+    </ul>
+    <!--     <ul class="sidebar-list">
+      <li>
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-grid-alt"></i>
+                  <span class="name">Dashboard</span>
+              </a>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">Dashboard</a>
+          </div>
+      </li>
+
+      <li class="dropdown">
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-collection"></i>
+                  <span class="name">Category</span>
+              </a>
+              <i class="bx bxs-chevron-down"></i>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">Category</a>
+              <a href="javaScript:(0);" class="link">HTML & CSS</a>
+              <a href="javaScript:(0);" class="link">JavaScript</a>
+              <a href="javaScript:(0);" class="link">PHP & MySQL</a>
+          </div>
+      </li>
+
+      <li class="dropdown">
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-book-alt"></i>
+                  <span class="name">Posts</span>
+              </a>
+              <i class="bx bxs-chevron-down"></i>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">Posts</a>
+              <a href="javaScript:(0);" class="link">Web Design</a>
+              <a href="javaScript:(0);" class="link">Login Form</a>
+              <a href="javaScript:(0);" class="link">Card Design</a>
+          </div>
+      </li>
+
+      <li>
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-line-chart"></i>
+                  <span class="name">Analytics</span>
+              </a>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">Analytics</a>
+          </div>
+      </li>
+
+      <li>
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-pie-chart-alt-2"></i>
+                  <span class="name">Chart</span>
+              </a>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">Chart</a>
+          </div>
+      </li>
+
+      <li class="dropdown">
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-extension"></i>
+                  <span class="name">Plugins</span>
+              </a>
+              <i class="bx bxs-chevron-down"></i>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">Plugins</a>
+              <a href="javaScript:(0);" class="link">UI Face</a>
+              <a href="javaScript:(0);" class="link">Pigments</a>
+              <a href="javaScript:(0);" class="link">Box Icons</a>
+          </div>
+      </li>
+
+      <li>
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-compass"></i>
+                  <span class="name">Explore</span>
+              </a>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">Explore</a>
+          </div>
+      </li>
+
+      <li>
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-history"></i>
+                  <span class="name">History</span>
+              </a>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">History</a>
+          </div>
+      </li>
+
+      <li>
+          <div class="title">
+              <a href="javaScript:(0);" class="link">
+                  <i class="bx bx-cog"></i>
+                  <span class="name">Settings</span>
+              </a>
+          </div>
+          <div class="submenu">
+              <a href="javaScript:(0);" class="link submenu-title">Settings</a>
+          </div>
+      </li>
+  </ul> -->
+</div>
+

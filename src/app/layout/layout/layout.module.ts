@@ -5,12 +5,14 @@ import { LayoutComponent } from './layout.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 
 
 @NgModule({
   declarations: [
-    LayoutComponent
+    LayoutComponent,
+    DashboardComponent
   ],
   imports: [
     RouterModule,
