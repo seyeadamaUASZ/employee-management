@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { BasicResponse } from 'src/app/shared/models/utils/basic-response.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { CredentialsService } from 'src/app/shared/services/credentials.service';
+import { AlertService } from 'src/app/shared/services/utils/alert.service';
 import { patternValidator } from 'src/app/shared/validators/custom.validator';
 
 @Component({
@@ -17,7 +21,12 @@ export class LoginComponent implements OnInit {
   hide = true;
   passwordCtrl!: FormControl;
   emailCtrl!:FormControl;
-  constructor(private fb:FormBuilder,private router:Router) { }
+  constructor(private fb:FormBuilder,
+    private router:Router,
+    private route:ActivatedRoute,
+    private authS:AuthService,
+    private alertService:AlertService,
+    private credentialsService:CredentialsService) { }
 
   ngOnInit(): void {
     this.initFormControls()
@@ -39,14 +48,41 @@ export class LoginComponent implements OnInit {
   }
 
   submit(){
-    console.log('element for login '+ JSON.stringify(this.ngForm.value))
-    this.router.navigateByUrl('layout')
+    //console.log('element for login '+ JSON.stringify(this.ngForm.value))
+    //this.router.navigateByUrl('layout')
+
+    if(this.ngForm.invalid){
+      this.ngForm.markAllAsTouched;
+    }else{
+      this.authS 
+      .signin(this.ngForm.value)
+      .pipe(takeUntil(this.destroy$))
+
+      .subscribe({
+        next:(b:BasicResponse)=>{
+          if(b.status===200){
+            console.log(b);
+            this.authS.saveUserCredentials(b)
+            this.router.navigate([this.route.snapshot.queryParams['redirect'] || '/layout'], { replaceUrl: true });
+            const alert = {
+              message: `Bienvenue ${this.credentialsService.fullName}`,
+              titre: 'Tableau de bord',
+              status: 'OK'
+          };
+          this.alertService.showAlert(alert);
+          }else{
+            this.alertService.showSwal('KO', null, 'Authentification', 'Login ou mot de passe incorrect!');
+          }
+        },
+        error: (error: any) => this.alertService.showSwal('KO', null, 'Authentification', 'Login ou mot de passe incorrect!')
+      })
+    }
 
   }
 
-//   get f(): { [key: string]: AbstractControl} {
-//     return this.ngForm.controls;
-// }
+   get f(): { [key: string]: AbstractControl} {
+     return this.ngForm.controls;
+ }
 
 ngOnDestroy(): void {
   this.destroy$.next(true);
