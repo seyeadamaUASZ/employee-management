@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { CustomErrorStateMatcher } from 'src/app/shared/helpers/custom-state-matcher';
 import { BasicResponse } from 'src/app/shared/models/utils/basic-response.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CredentialsService } from 'src/app/shared/services/credentials.service';
@@ -11,7 +13,8 @@ import { patternValidator } from 'src/app/shared/validators/custom.validator';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [{ provide: ErrorStateMatcher, useClass: CustomErrorStateMatcher }]
 })
 export class LoginComponent implements OnInit {
   loginValid:boolean=true;
@@ -35,8 +38,8 @@ export class LoginComponent implements OnInit {
 
   initForm(){
     this.ngForm= this.fb.group({
-       username:this.emailCtrl,
-       password:this.passwordCtrl
+       username:["",Validators.email],
+       password:["",Validators.required]
     },
     {Validators:[patternValidator()]}
     )
@@ -80,9 +83,9 @@ export class LoginComponent implements OnInit {
 
   }
 
-   get f(): { [key: string]: AbstractControl} {
-     return this.ngForm.controls;
- }
+  get f(): { [key: string]: AbstractControl} {
+    return this.ngForm.controls;
+}
 
 ngOnDestroy(): void {
   this.destroy$.next(true);

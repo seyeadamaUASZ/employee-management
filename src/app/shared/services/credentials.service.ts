@@ -19,11 +19,11 @@ export class CredentialsService {
     private _credentials: Credentials | null = null;
 
     constructor() {
-        const savedCredentials =
-            sessionStorage.getItem(GlobalConstant.credentialsKey) ?? localStorage.getItem(GlobalConstant.credentialsKey);
+        const savedCredentials = sessionStorage.getItem(GlobalConstant.credentialsKey);
         if (savedCredentials) {
             this._credentials = JSON.parse(savedCredentials);
         }
+        console.log('savedCredentials..... '+savedCredentials)
     }
 
     /**
@@ -48,10 +48,11 @@ export class CredentialsService {
 
     get undecodeAccessToken(): any | null {
         return this._credentials?.accessToken ? this._credentials.accessToken : null;
+       
     }
 
     get undecodeRefreshToken(): any | null {
-        return this._credentials?.refreshToken ? this._credentials.refreshToken : null;
+        return this._credentials?.refreshToken ? this._credentials.refreshToken : null;    
     }
 
     get fullName(): string {
@@ -75,7 +76,7 @@ export class CredentialsService {
     }
 
     get storage(): any {
-        return localStorage.getItem(GlobalConstant.credentialsKey) ? localStorage : sessionStorage;
+        return sessionStorage.getItem(GlobalConstant.credentialsKey)
     }
 
     /**
@@ -99,6 +100,8 @@ export class CredentialsService {
         }
     }
 
+   
+
     isExpiredRefreshToken(): boolean {
         if (this.isAuthenticated()) {
             const currentDate: number = new Date().getTime() / 1000;
@@ -117,19 +120,23 @@ export class CredentialsService {
      */
     setCredentials(credentials?: Credentials, remember?: boolean): void {
         this._credentials = credentials ?? null;
+        console.log('remember'+remember)
+        console.log('credentials '+ JSON.stringify(credentials))
 
         if (credentials) {
-            const storage = remember ? localStorage : sessionStorage;
-            storage.setItem(GlobalConstant.credentialsKey, JSON.stringify(credentials));
+            console.log('credentiallls '+credentials)
+            // const storage = remember ? localStorage : sessionStorage;
+            // storage.setItem(GlobalConstant.credentialsKey, JSON.stringify(credentials));
+            sessionStorage.setItem(GlobalConstant.credentialsKey,JSON.stringify(credentials))
         } else {
             sessionStorage.removeItem(GlobalConstant.credentialsKey);
-            localStorage.removeItem(GlobalConstant.credentialsKey);
+            //localStorage.removeItem(GlobalConstant.credentialsKey);
         }
     }
 
     refreshCredentials(credentials?: Credentials): void {
-        const storage = this.storage;
-        storage.setItem(GlobalConstant.credentialsKey, JSON.stringify(credentials));
+        //const storage = this.storage;
+        sessionStorage.setItem(GlobalConstant.credentialsKey, JSON.stringify(credentials));
     }
 
     /**
@@ -137,6 +144,6 @@ export class CredentialsService {
      */
     removeCredentials(): void {
         sessionStorage.removeItem(GlobalConstant.credentialsKey);
-        localStorage.removeItem(GlobalConstant.credentialsKey);
+        //localStorage.removeItem(GlobalConstant.credentialsKey);
     }
 }

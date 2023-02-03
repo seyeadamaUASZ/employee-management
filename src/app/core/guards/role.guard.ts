@@ -10,7 +10,7 @@ export class RoleGuard implements CanActivate {
     constructor(private credentialsService: CredentialsService, private alertService: AlertService, private router: Router) {}
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        const authorizedRoles = route.data['permissions'];
+        const authorizedRoles = route.data['PERMISSIONS'];
         const userRoles = this.credentialsService.permissions;
 
         console.log(authorizedRoles);

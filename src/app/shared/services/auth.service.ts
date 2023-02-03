@@ -45,6 +45,7 @@ export class AuthService {
     getUserFromLocalStorage(): User | null {
         const storedData = sessionStorage.getItem(TOKEN_KEY);
         if (storedData) {
+           
             const userData = JSON.parse(storedData);
             const expirationdate = new Date(userData?.expirationDate);
             return new User(userData?.accessToken, userData?.refreshToken, expirationdate);

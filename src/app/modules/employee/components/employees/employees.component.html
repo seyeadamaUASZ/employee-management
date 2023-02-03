@@ -1,1 +1,30 @@
-<p>employees works!</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h5 class="title-list">Liste des employés</h5>
+    <div class="flat-button">
+        <a
+            matTooltipPosition="left"
+            matTooltipClass="custom-tooltip"
+            matTooltip="Envoyer un nouveau lien KYC"
+            href="javaScript:(0);"
+            (click)="createEmployee()"
+        >
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+</div>
+
+
+<app-table
+    [hasActions]="true"
+    [hasSearchForm]="true"
+    [hasFilterInput]="true"
+    (action)="onTableAction($event)"
+    (pageChangeEvent)="onPageChange($event)"
+    (filterEvent)="onApplyFilter($event)"
+    [tableData]="data"
+    [columns]="columns"
+    [tableActions]="actions"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageData]="pageData"
+>
+</app-table>

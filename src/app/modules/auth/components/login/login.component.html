@@ -14,12 +14,12 @@
                                   <mat-icon matSuffix>perm_identity</mat-icon>
                               </button>
 
-                              <!-- <mat-error *ngIf="f['username'].touched && f['username']?.errors">
+                              <mat-error *ngIf="f['username'].touched && f['username']?.errors">
                                   <small *ngIf="f['username'].hasError('required')">Login obligatoire</small>
                                   <small *ngIf="!f['username'].hasError('required')">Login non conforme</small>
-                              </mat-error> -->
+                              </mat-error> 
 
-                              <mat-error>{{getFormControlErrorText(emailCtrl)}}</mat-error>
+                              <!-- <mat-error>{{getFormControlErrorText(emailCtrl)}}</mat-error> -->
                           </mat-form-field>
                       </div>
 
@@ -37,21 +37,21 @@
                                   <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
                               </button>
 
-                               <!-- <mat-error *ngIf="f['password'].touched && f['password']?.errors">
+                               <mat-error *ngIf="f['password'].touched && f['password']?.errors">
                                   <small *ngIf="f['password'].hasError('required')">Mot de passe obligatoire</small>
                                   <small *ngIf="!f['password'].hasError('required')">Mot de passe non conforme</small>
-                              </mat-error>  -->
+                              </mat-error>  
 
-                              <mat-error>{{getFormControlErrorText(passwordCtrl)}}</mat-error>
+                              <!-- <mat-error>{{getFormControlErrorText(passwordCtrl)}}</mat-error> -->
                           </mat-form-field>
                       </div>
 
-                      <!-- <div class="col-md-6">
+                       <!-- <div class="col-md-6">
                           <div class="form-check form-switch">
                               <input class="form-check-input" formControlName="remember" id="flexSwitchCheckChecked" type="checkbox" />
                               <label class="form-check-label" for="flexSwitchCheckChecked">Se souvenir de moi</label>
                           </div>
-                      </div> -->
+                      </div>  -->
 
                       <div class="col-md-12">
                           <button class="button-blue w-100" type="submit">Se connecter</button>

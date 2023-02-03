@@ -15,7 +15,7 @@ export const GlobalConstant = {
     },
     filePattern: '@##___@##',
     acceptedFiles: '.pdf, .jpg,.png, image/jpeg, image/png',
-    credentialsKey: 'KYC_SECRET_KEY',
+    credentialsKey: 'EMP_SECRET_KEY',
     tokenHeaderKey: 'Authorization',
     pagination: {
         defaultPage: 0,

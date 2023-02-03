@@ -19,16 +19,23 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): any {
         let authReq = req;
         let token: string | null = null;
+         
+         
+         if (this.credentialsService.isExpiredToken()) {
+             token = this.credentialsService.undecodeRefreshToken;
+         } else if (this.credentialsService.isExpiredRefreshToken()) {
+             token = this.credentialsService.undecodeAccessToken;
+         }else{
+            token=this.credentialsService.undecodeAccessToken;
+         }
+        
 
-        if (this.credentialsService.isExpiredToken()) {
-            token = this.credentialsService.undecodeAccessToken;
-        } else if (this.credentialsService.isExpiredRefreshToken()) {
-            token = this.credentialsService.undecodeAccessToken;
-        }
+         if (this.route.url.includes('login') === false && token != null) {
+             console.log('token for condition '+token)  
+             authReq = req.clone({ headers: req.headers.set(GlobalConstant.tokenHeaderKey, `Bearer ${token}`) });
+         }
 
-        if (this.route.url.includes('/') === false && this.route.url.includes('kyc') === false && token != null) {
-            authReq = req.clone({ headers: req.headers.set(GlobalConstant.tokenHeaderKey, `Bearer ${token}`) });
-        }
+        
         return next.handle(authReq).pipe(
             /*           map((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse && event.headers.get('refreshToken')) {

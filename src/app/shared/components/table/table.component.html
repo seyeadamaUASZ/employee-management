@@ -1,1 +1,364 @@
-<p>table works!</p>
+<!-- <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" #table matSort>
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+      <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{ column.header }}</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">{{ row[column.columnDef] }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Compte">
+      <th mat-header-cell *matHeaderCellDef>Compte</th>
+      <td mat-cell *matCellDef="let element">
+        <span [ngStyle]="{ color: element.compte == 'actif' ? 'green' : 'red' }">
+          {{ element.compte }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+      <mat-cell *matCellDef="let element" action-buttons [value]="element" (buttonAction)="onTableAction($event)">
+        {{ element.weight }}
+      </mat-cell>
+
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div> -->
+
+<div class="container-table">
+    <mat-accordion *ngIf="hasSearchForm">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title> Recherche</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Nom</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Marque</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Profil</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <button class="button-blue w-100" type="submit"><i class="fa fa-search me-2"></i> Rechercher</button>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <!--     <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="N°">
+              <th mat-header-cell *matHeaderCellDef>N°</th>
+              <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Prénom">
+              <th mat-header-cell *matHeaderCellDef>Prénom</th>
+              <td mat-cell *matCellDef="let element">{{ element.prenom }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Nom">
+              <th mat-header-cell *matHeaderCellDef>Nom</th>
+              <td mat-cell *matCellDef="let element">{{ element.nom }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Service">
+              <th mat-header-cell *matHeaderCellDef>Service</th>
+              <td mat-cell *matCellDef="let element">{{ element.service }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Fonction">
+              <th mat-header-cell *matHeaderCellDef>Fonction</th>
+              <td mat-cell *matCellDef="let element">{{ element.fonction }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Profil">
+              <th mat-header-cell *matHeaderCellDef>Profil</th>
+              <td mat-cell *matCellDef="let element">{{ element.profil }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Compte">
+              <th mat-header-cell *matHeaderCellDef>Compte</th>
+              <td mat-cell *matCellDef="let element">
+                  <span [ngStyle]="{ color: element.compte == 'actif' ? 'green' : 'red' }">
+                      {{ element.compte }}
+                  </span>
+              </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                  <span>
+                      <a routerLink="details">
+                          <i class="fa fa-eye" type="button"></i>
+                      </a>
+                      <a routerLink="edit">
+                          <i class="fa fa-edit" type="button"></i>
+                      </a>
+                      <a href="javascript:(0)">
+                          <i class="fa fa-lock-open" id="status" (click)="activeDesactive()" type="button"></i>
+                      </a>
+                  </span>
+              </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+          aria-label="Select page of periodic elements"> </mat-paginator>
+  </div> -->
+
+    <mat-form-field class="mt-4" *ngIf="hasFilterInput">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Recherche rapide" />
+    </mat-form-field>
+
+    <div class="example-container mat-elevation-z8">
+        <div class="example-table-container">
+            <table mat-table [dataSource]="dataSource" #table matSort>
+                <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.header }}</th>
+                    <td mat-cell *matCellDef="let row" class="m-card-title" test data-label="Riskplan">
+                     <span *ngIf="column.isDate">
+                        {{ row[column.columnDef] | date:'yyyy-MM-dd'}}
+                     </span>
+                     <span *ngIf="!column.isDate">
+                        {{ row[column.columnDef] ?? '-----' }}
+                     </span>
+                        
+                     
+                    </td>
+
+                   
+                </ng-container>
+
+                <!--       <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <mat-cell *matCellDef="let element" action-buttons [value]="element" (buttonAction)="onTableAction($event)">
+            {{ element.weight }}
+          </mat-cell>
+        </ng-container> -->
+
+                <!--         <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Action</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="row center">
+              <div class="col-lg-4 col-sm-4">
+                <div class="actions-btns">
+                  <button (click)="onTableAction($event, actionButton.view, element)" type="button"
+                    class="button-outline-blue">
+                    <i class="fa fa-eye" type="button"></i>
+                  </button>
+
+                  <button (click)="onTableAction($event, actionButton.unblock, element)" type="button"
+                    class="button-light">
+                    <i class="fa fa-lock-open" type="button"></i>
+                  </button>
+
+                  <button (click)="onTableAction($event, actionButton.block, element)" type="button"
+                    class="button-outline-red">
+                    <i class="fa fa-lock text-danger" type="button"></i>
+                  </button>
+
+                  <button (click)="onTableAction($event, actionButton.validate, element)" type="button"
+                    class="button-light">
+                    <i class="fa fa-lock-open" type="button"></i>
+                  </button>
+
+                  <button (click)="onTableAction($event, actionButton.cancel, element)" type="button"
+                    class="button-outline-red">
+                    <i class="fa fa-lock text-danger" type="button"></i>
+                  </button>
+
+                  <button (click)="onTableAction($event, actionButton.to_modify, element)" type="button"
+                    class="button-green">
+                    <i class="fa fa-edit" type="button"></i>
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container> -->
+                <ng-container matColumnDef="actions" *ngIf="hasActions">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="actions-btns center">
+                            <a *ngFor="let a of actions" href="javaScript:(0);" (click)="onTableAction($event, a?.action, element)">
+                                <ng-container [ngSwitch]="a?.action">
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.view"
+                                        class="fa fa-eye"
+                                        matTooltip="Voir les détails"
+                                        type="button"
+                                    ></i>
+
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.view_file"
+                                        class="fas fa-download"
+                                        matTooltip="Voir le fichier"
+                                        type="button"
+                                    ></i>
+
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.put_final_doc"
+                                        class="fas fa-upload"
+                                        matTooltip="Charger le PV final"
+                                        type="button"
+                                    ></i>
+
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.unblock"
+                                        matTooltip="Autoriser une nouvelle modification"
+                                        class="fa fa-lock-open"
+                                        type="button"
+                                    ></i>
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.block"
+                                        matTooltip="Bloquer la modification"
+                                        class="fa fa-lock text-danger"
+                                        type="button"
+                                    ></i>
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.validate"
+                                        matTooltip="Valider la demande KYC"
+                                        class="fa-solid fa-circle-check text-success"
+                                        type="button"
+                                    ></i>
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.cancel"
+                                        matTooltip="Annuler la demande KYC"
+                                        class="fa fa-times text-danger"
+                                        type="button"
+                                    ></i>
+
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.to_modify"
+                                        matTooltip="Envoyer une demande de modification"
+                                        class="fa fa-edit"
+                                        type="button"
+                                    ></i>
+
+                                    <i
+                                        matTooltipPosition="above"
+                                        matTooltipClass="custom-tooltip"
+                                        *ngSwitchCase="actionButton.delete"
+                                        matTooltip="Supprimer"
+                                        class="fa fa-trash"
+                                        type="button"
+                                    ></i>
+                                </ng-container>
+                            </a>
+                            <!-- <a *ngFor="let a of actions" href="javaScript:(0);" (click)="onTableAction($event, action, element)">
+                <ng-container [ngSwitch]="a?.action">
+                  <i matTooltipPosition="above" matTooltipClass="custom-tooltip" *ngSwitchCase="actionButton.view"
+                    class="fa fa-eye" matTooltip="Voir les détails" type="button"></i>
+
+                  <i matTooltipPosition="above" matTooltipClass="custom-tooltip" *ngSwitchCase="actionButton.view_file"
+                    class="fa fa-eye" matTooltip="Voir le fichier" type="button"></i>
+
+                  <i matTooltipPosition="above" matTooltipClass="custom-tooltip" *ngSwitchCase="actionButton.unblock"
+                    matTooltip="Autoriser une nouvelle modification" class="fa fa-lock-open" type="button"></i>
+                  <i matTooltipPosition="above" matTooltipClass="custom-tooltip" *ngSwitchCase="actionButton.block"
+                    matTooltip="Bloquer la modification" class="fa fa-lock text-danger" type="button"></i>
+                  <i matTooltipPosition="above" matTooltipClass="custom-tooltip" *ngSwitchCase="actionButton.validate"
+                    matTooltip="Valider la demande KYC" class="fa-solid fa-circle-check text-success" type="button"></i>
+                  <i matTooltipPosition="above" matTooltipClass="custom-tooltip" *ngSwitchCase="actionButton.cancel"
+                    matTooltip="Annuler la demande KYC" class="fa fa-times text-danger" type="button"></i>
+
+                  <i matTooltipPosition="above" matTooltipClass="custom-tooltip" *ngSwitchCase="actionButton.to_modify"
+                    matTooltip="Envoyer une demande de modification" class="fa fa-edit" type="button"></i>
+
+                  <i matTooltipPosition="above" matTooltipClass="custom-tooltip" *ngSwitchCase="actionButton.delete"
+                    matTooltip="Supprimer" class="fa fa-trash" type="button"></i>
+                </ng-container>
+              </a> -->
+                            <!--
+              <a matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                matTooltip="Autoriser une nouvelle modification" href="javaScript:(0);"
+                (click)="onTableAction($event, actionButton.unblock, element)">
+              </a>
+
+              <a matTooltipPosition="above" matTooltipClass="custom-tooltip" matTooltip="Bloquer la modification"
+                href="javaScript:(0);" (click)="onTableAction($event, actionButton.block, element)">
+              </a>
+
+              <a matTooltipPosition="above" matTooltipClass="custom-tooltip" matTooltip="Valider la demande KYC"
+                href="javaScript:(0);" (click)="onTableAction($event, actionButton.validate, element)">
+              </a>
+
+              <a matTooltipPosition="above" matTooltipClass="custom-tooltip" matTooltip="Annuler la demande KYC"
+                href="javaScript:(0);" (click)="onTableAction($event, actionButton.cancel, element)">
+              </a>
+
+              <a matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                matTooltip="Envoyer une demande de modification" href="javaScript:(0);"
+                (click)="onTableAction($event, actionButton.to_modify, element)">
+              </a>
+ -->
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                    <td style="text-align: center" [attr.colspan]="displayedColumns.length" class="centercol mat-cell">
+                        Aucun enregistrement trouvé ...
+                    </td>
+                </tr>
+            </table>
+
+            <!-- <table>
+        <tr *ngIf="!dataSource.data.length">
+          <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
+            Aucun enregistrement trouvé !
+          </td>
+        </tr>
+      </table> -->
+        </div>
+        <mat-paginator
+            [hidden]="!dataSource.data.length"
+            [pageSizeOptions]="pageSizeOptions"
+            [length]="pageData.length"
+            [pageSize]="pageData.size"
+            (page)="OnPageChange($event)"
+            [pageIndex]="pageData.page"
+            showFirstLastButtons
+        ></mat-paginator>
+    </div>
+</div>
+
