@@ -9,7 +9,7 @@ import { SharedState } from 'src/app/shared/helpers/shared.state';
 import { AlertService } from 'src/app/shared/services/utils/alert.service';
 import { CredentialsService } from 'src/app/shared/services/credentials.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BasicResponse } from 'src/app/shared/models/utils/basic-response.model';
 import { UserPermissionEnum } from 'src/app/shared/models/enums/user-permission.enum';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
@@ -149,6 +149,15 @@ onTableAction(event: any): void {
   let res: Observable<BasicResponse> = new Observable<BasicResponse>();
 
   //console.log('event',JSON.stringify(event));
+  if(event.name===this.actionButton.to_modify){
+    let username = event.value.username
+    this.dialog.open(EmployeeFormComponent,{
+      width:'850px',
+      data:event.value,
+      disableClose:true,
+     
+    })
+  }
 
   
   /*if (event.name === this.actionButton.view) {

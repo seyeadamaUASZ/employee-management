@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DepartmentService } from '../../services/department.service';
 import { EmployeeService } from '../../services/employee.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -19,23 +19,19 @@ const LOGGER = new Logger('EmployeeFormComponent');
   styleUrls: ['./employee-form.component.scss']
 })
 export class EmployeeFormComponent implements OnInit {
-  employeeForm!:FormGroup;
+  //employeeForm!:FormGroup;
   datadeps:any;
   destroy$: Subject<boolean> = new Subject();
   employeeTypes: any[] = enumToList(EmployeeTypeEnum);
+  user:any;
   constructor(private fb:FormBuilder,
     private employeeS:EmployeeService,private dialog:MatDialog,
     private dialogRef:MatDialogRef<EmployeeFormComponent>,
     private departmentService:DepartmentService,
-    private alertService:AlertService,private router: Router) { }
+    private alertService:AlertService,private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit(): void {
-    this.initForm();
-    this.allDeps();
-  }
-
-  initForm(){
-    this.employeeForm=this.fb.group({
+    employeeForm=this.fb.group({
       username:['',Validators.email],
       firstName:['',Validators.required],
       birthday:['',Validators.required],
@@ -43,7 +39,28 @@ export class EmployeeFormComponent implements OnInit {
       departmentId:['',Validators.required],
       employeeType:['',Validators.required]
     })
+
+  ngOnInit(): void {
+    //console.log('username '+JSON.stringify(this.data))
+    this.user=this.data
+    if(this.user){
+      this.updateForm(this.user)
+    }
+    this.allDeps();
+
   }
+
+  private formatDate(date:any) {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  }
+
+  
 
 
   close(){
@@ -118,6 +135,23 @@ export class EmployeeFormComponent implements OnInit {
             );
         }
     });
+  }
+
+  updateForm(user:Employee){
+    console.log(' intervention info ')
+    //console.log('in ' + JSON.stringify(intervention))
+     
+    this.employeeForm.patchValue({
+      firstName:user?.firstName,
+      lastName:user?.lastName,
+      birthday:this.formatDate(user?.birthday),
+      username:user?.username,
+      departmentId:user?.departmentId,
+      employeeType:user?.employeeType
+
+    })
+    console.log(this.employeeForm.value)
+
   }
 
   ngOnDestroy(): void {
