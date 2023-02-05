@@ -23,7 +23,7 @@ export class CredentialsService {
         if (savedCredentials) {
             this._credentials = JSON.parse(savedCredentials);
         }
-        console.log('savedCredentials..... '+savedCredentials)
+       
     }
 
     /**

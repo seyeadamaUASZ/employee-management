@@ -7,7 +7,12 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { AlertService } from 'src/app/shared/services/utils/alert.service';
 import { enumToList } from 'src/app/shared/models/enums/enum-utils';
 import { EmployeeTypeEnum } from 'src/app/shared/models/enums/EmployeeType.enum';
+import { Logger } from 'src/app/core/services/logger.service';
+import { Employee } from '../../models/employee.model';
+import { Router } from '@angular/router';
 
+
+const LOGGER = new Logger('EmployeeFormComponent');
 @Component({
   selector: 'app-employee-form',
   templateUrl: './employee-form.component.html',
@@ -22,7 +27,7 @@ export class EmployeeFormComponent implements OnInit {
     private employeeS:EmployeeService,private dialog:MatDialog,
     private dialogRef:MatDialogRef<EmployeeFormComponent>,
     private departmentService:DepartmentService,
-    private alertService:AlertService) { }
+    private alertService:AlertService,private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -42,7 +47,7 @@ export class EmployeeFormComponent implements OnInit {
 
 
   close(){
-    this.dialogRef.close()
+    this.dialogRef.close(true)
   }
 
   allDeps(): void {
@@ -71,7 +76,48 @@ export class EmployeeFormComponent implements OnInit {
   
 
   onSubmitForm(){
-
+    console.log('form value '+this.employeeForm.value)
+    let data:Employee={
+        lastName:this.employeeForm.value.lastName,
+        firstName:this.employeeForm.value.firstName,
+        username:this.employeeForm.value.username,
+        birthday:this.employeeForm.value.birthday,
+        departmentId:this.employeeForm.value.departmentId,
+        employeeType:this.employeeForm.value.employeeType
+    }
+    this.employeeS
+    .addEmployee(data)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+        next: response => {
+            if (response.status === 200) {
+                this.alertService.showSwal(
+                    'OK',
+                    null,
+                    'EMP',
+                    `Employé enregistré avec succès!`
+                );
+                this.close();
+                window.location.reload()
+            } else {
+                this.alertService.showSwal(
+                    'KO',
+                    null,
+                    'EMP',
+                    `Erreur lors de l'enregistrement`
+                );
+            }
+            LOGGER.debug('Saved request', response);
+        },
+        error: e => {
+            this.alertService.showSwal(
+                'KO',
+                null,
+                'EMP',
+                `Erreur sur l'ajout de l'employé`
+            );
+        }
+    });
   }
 
   ngOnDestroy(): void {

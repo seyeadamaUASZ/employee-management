@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BasicResponse } from 'src/app/shared/models/utils/basic-response.model';
 import { UserPermissionEnum } from 'src/app/shared/models/enums/user-permission.enum';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
+import { ISearchRequestForm } from 'src/app/shared/models/requests/search-request-form.model';
 
 @Component({
   selector: 'app-employees',
@@ -35,7 +36,8 @@ export class EmployeesComponent implements OnInit {
     data: any[] = [];
     pageData: IPagination = { page: 0, size: 3, length: 0 };
     pageSizeOptions = [5, 15, 30, 50];
-    //searchParams!: ISearchRequestForm;
+    searchParams!: ISearchRequestForm;
+    
 
     actionButton = GlobalConstant.actionButton;
 
@@ -113,7 +115,7 @@ onInitColumns(): void {
       { columnDef: 'firstName', header: 'Prénom' },
       { columnDef: 'username', header: 'Email' },
       { columnDef: 'birthday', header: 'Date de Naissance',isDate:true },
-      { columnDef: 'employeeType', header: 'Type d\'embauche' }
+      { columnDef: 'employeeType', header: 'Type d\'embauche',isStatut:true }
   ];
 }
 
@@ -128,7 +130,7 @@ onPageChange(event: IPagination): void {
 }
 
 onApplyFilter(event: any): void {
-  //this.searchParams = { ...this.searchParams, searchText: event };
+  this.searchParams = { ...this.searchParams, searchText: event };
   this.allEmployees();
 }
 
@@ -136,6 +138,9 @@ createEmployee(){
   this.dialog.open(EmployeeFormComponent,{
     width:'850px',
     disableClose:true
+  }).afterClosed().subscribe(result=>{
+     console.log('result '+result)
+     this.allEmployees();
   })
 }
 

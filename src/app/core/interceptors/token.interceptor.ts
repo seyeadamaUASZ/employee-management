@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
         
 
          if (this.route.url.includes('login') === false && token != null) {
-             console.log('token for condition '+token)  
+             //console.log('token for condition '+token)  
              authReq = req.clone({ headers: req.headers.set(GlobalConstant.tokenHeaderKey, `Bearer ${token}`) });
          }
 

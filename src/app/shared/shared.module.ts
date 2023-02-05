@@ -5,11 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TableComponent } from './components/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EqualPipe } from '../pipe/equal-value.pipe';
 
 
 @NgModule({
   declarations: [
-    TableComponent
+    TableComponent,
+    EqualPipe
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     TableComponent,
     MaterialModule,
     ReactiveFormsModule,
+    EqualPipe
   ]
 })
 export class SharedModule { }

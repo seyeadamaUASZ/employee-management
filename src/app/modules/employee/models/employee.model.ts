@@ -1,10 +1,10 @@
 export class Employee{
-    id!:number;
+    id?:number;
     firstName!:string;
     lastName!:string;
     birthday!:Date;
     departmentId!:number;
     employeeType!:string;
-    dateSignContract!:Date;
+    dateSignContract?:Date;
     username!:string;
 }

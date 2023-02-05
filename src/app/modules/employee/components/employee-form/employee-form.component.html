@@ -15,20 +15,30 @@
                 <mat-label>Nom</mat-label>
                 <input type="text" matInput formControlName="lastName">
                 <mat-error>Ce champ est requis</mat-error>
-            </mat-form-field>
+            </mat-form-field>      
         </div>
-    </mat-card>
-    
-    <mat-card class="form-card">
-        <mat-card-subtitle>Date de Naissance</mat-card-subtitle>
+
         <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="username">
+                <mat-error>Veuillez renseigner l'email </mat-error>
+            </mat-form-field>
+
             <mat-form-field appearance="outline">
                 <mat-label>Date de Naissance</mat-label>
                 <input type="date" matInput formControlName="birthday">
                 <!-- <mat-error>{{ getFormControlErrorText(emailCtrl) }}</mat-error> -->
+                <mat-error>Renseigner la date de naissance</mat-error>
             </mat-form-field>
 
 
+        </div>
+    </mat-card>
+    
+    <mat-card class="form-card">
+        <mat-card-subtitle>Compagnie</mat-card-subtitle>
+        <div class="form-row">
             <mat-form-field appearance="outline">
                 <mat-label>Département</mat-label>
                 <mat-select formControlName="departmentId">
@@ -36,36 +46,26 @@
                     <mat-option *ngFor="let dep of datadeps" [value]="dep?.id">{{ dep?.name }}</mat-option>
                     
                 </mat-select>
+                <mat-error>Veuillez renseigner le département</mat-error>
             </mat-form-field>
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Confirmer votre adresse mail</mat-label>
-                <input type="text" matInput formControlName="confirm">
-                <mat-error>{{ getFormControlErrorText(confirmEmailCtrl) }}</mat-error>
-            </mat-form-field> -->
-        </div>
-        <!-- <small class="error-text" *ngIf="showEmailError$ | async"> Les deux emails ne correspondent pas</small> -->
-    </mat-card>
 
-    <mat-card class="form-card">
-        <mat-card-subtitle>Type de l'employé</mat-card-subtitle>
-        <div class="form-row">
+
             <mat-form-field appearance="outline">    
                 <mat-label>Type</mat-label>
                     <mat-select formControlName="employeeType">
                         <mat-option value="">Sélectionner un élément</mat-option>
                         <mat-option *ngFor="let ls of employeeTypes" [value]="ls?.key">{{ ls?.value }}</mat-option>
+                       
                     </mat-select>
+                    <mat-error>Veuillez renseigner le type </mat-error>
             </mat-form-field>
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Confirmer votre adresse mail</mat-label>
-                <input type="text" matInput formControlName="confirm">
-                <mat-error>{{ getFormControlErrorText(confirmEmailCtrl) }}</mat-error>
-            </mat-form-field> -->
+           
+
+
         </div>
         <!-- <small class="error-text" *ngIf="showEmailError$ | async"> Les deux emails ne correspondent pas</small> -->
     </mat-card>
-
-
+    
     <!-- <mat-card class="form-card" *ngIf="showPhoneCtrl$ | async">
         <mat-card-subtitle>Téléphone</mat-card-subtitle>
         <mat-form-field appearance="fill">

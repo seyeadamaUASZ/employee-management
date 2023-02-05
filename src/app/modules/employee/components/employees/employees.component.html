@@ -4,7 +4,7 @@
         <a
             matTooltipPosition="left"
             matTooltipClass="custom-tooltip"
-            matTooltip="Envoyer un nouveau lien KYC"
+            matTooltip="Ajouter un nouveau employé"
             href="javaScript:(0);"
             (click)="createEmployee()"
         >
@@ -20,7 +20,6 @@
     [hasFilterInput]="true"
     (action)="onTableAction($event)"
     (pageChangeEvent)="onPageChange($event)"
-    (filterEvent)="onApplyFilter($event)"
     [tableData]="data"
     [columns]="columns"
     [tableActions]="actions"

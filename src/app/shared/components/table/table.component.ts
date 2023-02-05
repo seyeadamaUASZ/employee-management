@@ -25,6 +25,7 @@ export class TableComponent  implements OnInit, AfterViewInit {
     panelOpenState = false;
     activeUser = true;
     actionButton = GlobalConstant.actionButton;
+   
 
     @Input() pageData: IPagination = {
         page: GlobalConstant.pagination.defaultPage,
@@ -39,7 +40,7 @@ export class TableComponent  implements OnInit, AfterViewInit {
 
     @Output() action: EventEmitter<TableButtonAction> = new EventEmitter<TableButtonAction>();
     @Output() pageChangeEvent: EventEmitter<IPagination> = new EventEmitter<IPagination>();
-    @Output() filterEvent: EventEmitter<string> = new EventEmitter<string>();
+    @Output() filterEvent?: EventEmitter<string> = new EventEmitter<string>();
 
     @Input() columns: Array<TableColumn> = [];
     actions: Array<any> = [];
@@ -130,7 +131,8 @@ setPageData(pageData: any): void {
 
 applyFilter(event: any): void {
   const filterValue = (event.target as HTMLInputElement).value;
-  this.filterEvent.emit(filterValue.trim().toLowerCase());
+  //this.filterEvent.emit(filterValue.trim().toLowerCase());
+  this.dataSource.filter = filterValue.trim().toLowerCase();
 }
 
 setUserAuthorizeActions(actions: any[]): void {

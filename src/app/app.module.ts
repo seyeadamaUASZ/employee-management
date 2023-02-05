@@ -19,13 +19,15 @@ import { CustomPagination } from './shared/helpers/custom-pagination';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { CustomErrorStateMatcher } from './shared/helpers/custom-state-matcher';
 import { ToastrModule } from 'ngx-toastr';
+import { LoaderComponent } from './core/components/loader/loader.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
