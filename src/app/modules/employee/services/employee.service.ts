@@ -55,6 +55,10 @@ this.http.post<BasicResponse>(`${environment.api}/api/employee`, dto);
 getEmployee=(username:any):Observable<BasicResponse> =>
 this.http.get<BasicResponse>(`${environment.api}/api/employee/find/${username}`);
 
+updateEmployee=(id:any,data:any):Observable<BasicResponse> =>
+this.http.put<BasicResponse>(`${environment.api}/api/employee/update/${id}`,data);
+
+
 
 
 

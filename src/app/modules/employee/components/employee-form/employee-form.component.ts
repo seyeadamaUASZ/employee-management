@@ -41,7 +41,7 @@ export class EmployeeFormComponent implements OnInit {
     })
 
   ngOnInit(): void {
-    //console.log('username '+JSON.stringify(this.data))
+    console.log('username '+JSON.stringify(this.data))
     this.user=this.data
     if(this.user){
       this.updateForm(this.user)
@@ -93,7 +93,7 @@ export class EmployeeFormComponent implements OnInit {
   
 
   onSubmitForm(){
-    console.log('form value '+this.employeeForm.value)
+    //console.log('form value '+this.employeeForm.value)
     let data:Employee={
         lastName:this.employeeForm.value.lastName,
         firstName:this.employeeForm.value.firstName,
@@ -102,6 +102,16 @@ export class EmployeeFormComponent implements OnInit {
         departmentId:this.employeeForm.value.departmentId,
         employeeType:this.employeeForm.value.employeeType
     }
+
+    if(this.data){
+      this.updateEmployee(this.data?.id,data)
+    }else{
+      this.saveEmployee(data)
+    }
+    
+  }
+
+  saveEmployee(data:Employee){
     this.employeeS
     .addEmployee(data)
     .pipe(takeUntil(this.destroy$))
@@ -115,7 +125,7 @@ export class EmployeeFormComponent implements OnInit {
                     `Employé enregistré avec succès!`
                 );
                 this.close();
-                window.location.reload()
+                //window.location.reload()
             } else {
                 this.alertService.showSwal(
                     'KO',
@@ -137,6 +147,43 @@ export class EmployeeFormComponent implements OnInit {
     });
   }
 
+  updateEmployee(id:number,data:Employee){
+    this.employeeS.
+    updateEmployee(id,data) 
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+        next: response => {
+            if (response.status === 200) {
+                this.alertService.showSwal(
+                    'OK',
+                    null,
+                    'EMP',
+                    `Employé modifié avec succès!`
+                );
+                this.close();
+                //window.location.reload()
+            } else {
+                this.alertService.showSwal(
+                    'KO',
+                    null,
+                    'EMP',
+                    `Erreur lors de la modification`
+                );
+            }
+            LOGGER.debug('update request', response);
+        },
+        error: e => {
+            this.alertService.showSwal(
+                'KO',
+                null,
+                'EMP',
+                `Erreur sur la modification de l'employé`
+            );
+        }
+    });
+
+  }
+
   updateForm(user:Employee){
     console.log(' intervention info ')
     //console.log('in ' + JSON.stringify(intervention))
@@ -150,8 +197,7 @@ export class EmployeeFormComponent implements OnInit {
       employeeType:user?.employeeType
 
     })
-    console.log(this.employeeForm.value)
-
+   
   }
 
   ngOnDestroy(): void {

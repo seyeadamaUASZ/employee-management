@@ -49,7 +49,7 @@ export class EmployeesComponent implements OnInit {
         private alertService: AlertService,
         private dialog: MatDialog,
         private router: Router,
-        private crdService: CredentialsService) {
+        private crdService: CredentialsService,) {
 
 
           this.actions = [
@@ -87,7 +87,7 @@ export class EmployeesComponent implements OnInit {
                     };
                     this.data = response.data
 
-                    console.log("element data"+ this.data);
+                    //console.log("element data"+ JSON.stringify(this.data));
                 } else {
                     this.alertService.showSwal('KO', null, 'EMP', 'Impossible de récupérer la liste des employés.');
                 }
@@ -148,14 +148,14 @@ createEmployee(){
 onTableAction(event: any): void {
   let res: Observable<BasicResponse> = new Observable<BasicResponse>();
 
-  //console.log('event',JSON.stringify(event));
   if(event.name===this.actionButton.to_modify){
-    let username = event.value.username
     this.dialog.open(EmployeeFormComponent,{
       width:'850px',
       data:event.value,
       disableClose:true,
      
+    }).afterClosed().subscribe(result=>{
+      this.allEmployees()
     })
   }
 
